@@ -4,6 +4,6 @@ This is a WIP side-project implementing a flexible framework for creating grid-b
 
 ## Fun Features
 
--Supports grids and movement across any number of dimensions, including 4+.
--Supports units, movement, and actions for objects of any size, whether they are contiguous or not.
--Supports undoing and redoing of any action.
+- Supports grids and movement across any number of dimensions, including 4+.
+- Supports units, movement, and actions for objects of any size, whether they are contiguous or not.
+- Supports undoing and redoing of any action.
