@@ -1,0 +1,1 @@
+public interface ITypedDirectionalSelector<T> : IDirectionalSelector, ITypedSelector<T> { }
