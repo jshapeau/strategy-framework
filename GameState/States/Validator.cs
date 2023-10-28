@@ -15,16 +15,20 @@ public class Validator : CombatDecorator
     public Validator(Combat baseState)
         :base(baseState)
     {
-
     }
 
     public void Activate(ICommand command, IGameState parent = null) 
     {
         this.PreviousState = parent;
         this.command = command;
-        this.selector = command.Selector;
-        this.selector.ShowValidSelections();
 
+        this.selector = command.Selector;
+
+        this.command.Initialize();
+        Debug.Log(this.command);
+        Debug.Log(this.selector);
+        this.selector.ShowValidSelections();
+        
         this.command.OnExecute += SwitchToGameActionState;
         this.OnStateEntered?.Invoke();
     }
@@ -37,7 +41,7 @@ public class Validator : CombatDecorator
     public override void Deactivate() 
     {   
         this.selector.Deactivate();
-        this.command.OnExecute += SwitchToGameActionState;
+        this.command.OnExecute -= SwitchToGameActionState;
         this.selector = null;
         base.Deactivate();
     }

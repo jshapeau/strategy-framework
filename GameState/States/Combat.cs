@@ -20,7 +20,7 @@ public class Combat : GameState, ICombatGameState
     {
         this.PreviousState = null; 
         this.selector = selector;
-        this.selector.OnSelect += this.OnSelect;
+        
     }
     
     //Needs Refactor
@@ -51,12 +51,14 @@ public class Combat : GameState, ICombatGameState
     public override void Activate()
     {
         this.selector.Initialize(this.defaultSelection);
+        this.selector.OnSelect += this.OnSelect;
         base.Activate();
     }
 
     public override void Deactivate()
     {
         this.selector.Deactivate();
+        this.selector.OnSelect -= this.OnSelect;
         base.Deactivate();
     }
 
