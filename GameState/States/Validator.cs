@@ -21,14 +21,10 @@ public class Validator : CombatDecorator
     {
         this.PreviousState = parent;
         this.command = command;
-
         this.selector = command.Selector;
 
         this.command.Initialize();
-        Debug.Log(this.command);
-        Debug.Log(this.selector);
         this.selector.ShowValidSelections();
-        
         this.command.OnExecute += SwitchToGameActionState;
         this.OnStateEntered?.Invoke();
     }
