@@ -34,7 +34,7 @@ public class GridObjectEntity
         component.Entity = null;
     }
 
-    public List<T> GetObjectsOfType<T>() where T : IGridObjectComponent
+    public List<T> GetComponentsOfType<T>() where T : IGridObjectComponent
     {
         List<T> result = new List<T>();
         foreach (IGridObjectComponent entity in this.Components)
@@ -46,4 +46,17 @@ public class GridObjectEntity
         }
         return result;
     }
+
+    public T GetFirstObjectOfType<T>() where T : class, IGridObjectComponent
+    {
+        foreach (IGridObjectComponent entity in this.Components)
+        {
+            if (entity is T)
+            {
+                return (T)entity;
+            }
+        }
+        return default(T);
+    }
+
 }
