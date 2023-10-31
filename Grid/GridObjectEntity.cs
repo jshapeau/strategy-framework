@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 public class GridObjectEntity
 {
+    public GridCellCollection Location { get; set; }
     private List<IGridObjectComponent> Components;
 
     public GridObjectEntity(List<IGridObjectComponent> initialComponents)
@@ -47,7 +48,7 @@ public class GridObjectEntity
         return result;
     }
 
-    public T GetFirstObjectOfType<T>() where T : class, IGridObjectComponent
+    public T GetFirstComponentOfType<T>() where T : class, IGridObjectComponent
     {
         foreach (IGridObjectComponent entity in this.Components)
         {
