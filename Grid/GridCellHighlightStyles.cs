@@ -1,3 +1,5 @@
+using UnityEngine;
+
 /// <summary>
 /// Provides styling information for GridCellHighlights
 /// </summary>

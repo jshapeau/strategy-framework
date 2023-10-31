@@ -8,13 +8,11 @@ public class MovementGameAction : GameAction<GridCellCollection>
 
     public MovementGameAction(
         GridObjectEntity source,
-        GridCellCollection destination,
         ActionData parent = null,
         GridObjectEntity actionTarget = null
     )
     {
         this.data.moveActionData = moveData;
-        data.moveActionData.destination = destination;
         this.data.source = source;
 
         if (actionTarget != null)
@@ -27,8 +25,11 @@ public class MovementGameAction : GameAction<GridCellCollection>
         }
     }
 
-    public override void Execute(GridCellCollection target)
+    public override void Execute(GridCellCollection destination, ActionData parent = null)
     {
+        this.data.moveActionData.destination = destination;
+        this.data.parent = parent;
+
         Debug.Log("Execute Unimplemented");
     }
 }

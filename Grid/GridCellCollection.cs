@@ -1,3 +1,7 @@
+using UnityEngine;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 public class GridCellCollection : Collection<GridCell>
 {
     private IGridCellGraph parent;   

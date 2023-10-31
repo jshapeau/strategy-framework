@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Collections;
-using System.Collections.ObjectModel;
+using UnityEngine;
 
 /// <summary>
 /// Represents a position on a grid; allows world position and grid position to vary independently.
@@ -85,7 +82,6 @@ public struct GridPosition
             z * zScale)
         );
     }
-
 }
 
 
