@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -15,12 +13,13 @@ public class LevelGrid : MonoBehaviour, ILevelGrid
     [SerializeField] private float yScale;
     [SerializeField] private float zScale;
 
-    public IGridCellGraph Cells {get; set;}
+    public IGridCellGraph Cells { get; set; }
 
-    private void Awake() {
-            xScale = GridPosition.xScale;
-            yScale = GridPosition.yScale;
-            zScale = GridPosition.zScale;
+    private void Awake()
+    {
+        xScale = GridPosition.xScale;
+        yScale = GridPosition.yScale;
+        zScale = GridPosition.zScale;
     }
 
     public Vector3 GetGridScale()
@@ -40,15 +39,15 @@ public class LevelGrid : MonoBehaviour, ILevelGrid
     /// <returns></returns>
     public GridPosition SanitizeGridPosition(GridPosition gridPosition)
     {
-        if(IsValidGridPosition(gridPosition))
+        if (IsValidGridPosition(gridPosition))
         {
             return gridPosition;
-        } 
+        }
         else
         {
-            return new GridPosition(Mathf.Clamp(gridPosition.x, 0, gridWidth-1),
-                                    Mathf.Clamp(gridPosition.y, 0, gridHeight-1),
-                                    Mathf.Clamp(gridPosition.z, 0, gridLength-1));
+            return new GridPosition(Mathf.Clamp(gridPosition.x, 0, gridWidth - 1),
+                                    Mathf.Clamp(gridPosition.y, 0, gridHeight - 1),
+                                    Mathf.Clamp(gridPosition.z, 0, gridLength - 1));
         }
     }
 
@@ -73,10 +72,9 @@ public class LevelGrid : MonoBehaviour, ILevelGrid
         {
             return gridPositions;
         }
-        
+
         GridPositionCollection results = new GridPositionCollection();
         GridPositionCollection bounds = gridPositions.GetBounds();
-
 
         //Lower Bounds
         int x_offset = bounds[0].x < 0 ? bounds[0].x : 0;
@@ -87,18 +85,15 @@ public class LevelGrid : MonoBehaviour, ILevelGrid
         x_offset = bounds[1].x >= gridWidth ? bounds[1].x - gridWidth + 1 : x_offset;
         y_offset = bounds[1].y >= gridHeight ? bounds[1].y - gridHeight + 1 : y_offset;
         z_offset = bounds[1].z >= gridLength ? bounds[1].z - gridLength + 1 : z_offset;
-        
+
         foreach (GridPosition gridPosition in gridPositions)
         {
-            GridPosition result = gridPosition - new GridPosition (x_offset, y_offset, z_offset);
+            GridPosition result = gridPosition - new GridPosition(x_offset, y_offset, z_offset);
             results.Add(result);
         }
 
-        // Debug.Log(results[0]);
         return results;
-        
     }
-
 
     public bool IsValidGridPosition(GridPosition gridPosition)
     {
@@ -109,5 +104,4 @@ public class LevelGrid : MonoBehaviour, ILevelGrid
                 gridPosition.y < gridHeight &&
                 gridPosition.z < gridLength;
     }
-
 }
