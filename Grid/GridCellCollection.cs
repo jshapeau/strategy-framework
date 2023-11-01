@@ -14,6 +14,22 @@ public class GridCellCollection : Collection<GridCell>
 
     public GridCellCollection() {}
 
+    public void AddEntity(GridObjectEntity entity)
+    {
+        foreach (GridCell gridCell in this.Items)
+        {
+            gridCell.Entities.Add(entity);
+        }
+    }
+
+    public void RemoveEntity(GridObjectEntity entity)
+    {
+        foreach (GridCell gridCell in this.Items)
+        {
+            gridCell.Entities.Remove(entity);
+        }
+    }
+
     public GridCellCollection(List<GridCell> gridCells)
         : base(gridCells)
     {
