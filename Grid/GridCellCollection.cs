@@ -4,14 +4,37 @@ using System.Collections.ObjectModel;
 
 public class GridCellCollection : Collection<GridCell>
 {
-    private IGridCellGraph parent;   
-    
+    private IGridCellGraph parent;
+
     public void SetParent(IGridCellGraph parent)
     {
         this.parent = parent;
     }
 
-    public GridCellCollection() {}
+    public GridCellCollection() { }
+
+    public List<T> GetComponentsOfType<T>() where T : IGridObjectComponent
+    {
+        List<T> result = new List<T>();
+        foreach (GridCell gridCell in this.Items)
+        {
+            result.AddRange(gridCell.GetComponentsOfType<T>());
+        }
+        return result;
+    }
+
+    public T GetFirstComponentOfType<T>() where T : class, IGridObjectComponent
+    {
+        foreach (GridCell gridCell in this.Items)
+        {
+            T result = gridCell.GetFirstComponentOfType<T>();
+            if (gridCell.GetFirstComponentOfType<T>() != null)
+            {
+                return result;
+            }
+        }
+        return default(T);
+    }
 
     public void AddEntity(GridObjectEntity entity)
     {
@@ -35,9 +58,9 @@ public class GridCellCollection : Collection<GridCell>
     }
 
     public GridCellCollection(GridCell gridCell)
-        : base(new List<GridCell>() {gridCell})
+        : base(new List<GridCell>() { gridCell })
     {
-        
+
     }
 
     public GridCellCollection(GridPositionCollection gridPositions)
@@ -49,7 +72,7 @@ public class GridCellCollection : Collection<GridCell>
             {
                 base.Add(this.parent.At(gridPosition));
             }
-        }        
+        }
     }
 
     public GridPositionCollection GetGridPositions()
@@ -64,21 +87,24 @@ public class GridCellCollection : Collection<GridCell>
         return gridPositions;
     }
 
-    #nullable enable
-    public GridCellCollection? GetAllNeighborsOrNull(Neighbor neighbor) {
+#nullable enable
+    public GridCellCollection? GetAllNeighborsOrNull(Neighbor neighbor)
+    {
         GridCellCollection neighbors = new GridCellCollection();
-        
-        foreach (GridCell gridCell in this.Items) {
-            if (!gridCell.Neighbors.ContainsKey(neighbor)) {
+
+        foreach (GridCell gridCell in this.Items)
+        {
+            if (!gridCell.Neighbors.ContainsKey(neighbor))
+            {
                 return null;
-            } 
+            }
 
             neighbors.Add(gridCell.Neighbors[neighbor]);
         }
 
         return neighbors;
     }
-    #nullable disable
+#nullable disable
 
     public Dictionary<Neighbor, GridCellCollection> GetNeighbors()
     {
@@ -87,23 +113,30 @@ public class GridCellCollection : Collection<GridCell>
         foreach (Neighbor neighbor in System.Enum.GetValues(typeof(Neighbor)))
         {
             GridCellCollection tempNeighbors = new GridCellCollection();
-            
+
             foreach (GridCell gridCell in this.Items)
             {
-                if(gridCell.Neighbors.ContainsKey(neighbor))
+                if (gridCell.Neighbors.ContainsKey(neighbor))
                 {
                     tempNeighbors.Add(gridCell.Neighbors[neighbor]);
                 }
             }
-    
+
             if (tempNeighbors.Count > 0)
             {
                 neighborsDictionary[neighbor] = tempNeighbors;
             }
-            
         }
-
         return neighborsDictionary;
     }
 
+    public override string ToString()
+    {
+        string result = "";
+        foreach (GridCell gridCell in this.Items)
+        {
+            result = result + gridCell.ToString() + ", ";
+        }
+        return result;
+    }
 }
