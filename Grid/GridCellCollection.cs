@@ -8,7 +8,6 @@ public class GridCellCollection : Collection<GridCell>
     
     public void SetParent(IGridCellGraph parent)
     {
-        Debug.Log("Test");
         this.parent = parent;
     }
 
