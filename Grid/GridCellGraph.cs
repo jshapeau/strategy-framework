@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 /// <summary>
@@ -21,18 +19,18 @@ public class GridCellGraph : IGridCellGraph
         return new GridCellCollection(this.array.Cast<GridCell>().ToList());
     }
 
-    public bool IsOpen(List<GridCell> gridCells)
-    {
-        foreach(GridCell gridCell in gridCells)
-        {
-            if (!gridCell.IsOpen())
-            {
-                return false;
-            }
-        }
+    // public bool IsOpen(List<GridCell> gridCells)
+    // {
+    //     foreach(GridCell gridCell in gridCells)
+    //     {
+    //         if (!gridCell.IsOpen())
+    //         {
+    //             return false;
+    //         }
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
     public GridPositionCollection GetGridPositions(GridCellCollection gridCells)
     {
@@ -59,6 +57,7 @@ public class GridCellGraph : IGridCellGraph
     {
         return this.array[gridPosition.x, gridPosition.y, gridPosition.z];
     }
+
 
     public Dictionary<Neighbor, GridCellCollection> GetAllNeighbors() {
         return this.GetAllGridCells().GetNeighbors();
