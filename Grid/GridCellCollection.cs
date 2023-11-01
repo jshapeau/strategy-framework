@@ -1,4 +1,3 @@
-using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -12,6 +11,16 @@ public class GridCellCollection : Collection<GridCell>
     }
 
     public GridCellCollection() { }
+
+    public GridCellCollection(List<GridCell> gridCells)
+        : base(gridCells)
+    {
+    }
+
+    public GridCellCollection(GridCell gridCell)
+        : base(new List<GridCell>() { gridCell })
+    {
+    }
 
     public List<T> GetComponentsOfType<T>() where T : IGridObjectComponent
     {
@@ -52,17 +61,6 @@ public class GridCellCollection : Collection<GridCell>
         }
     }
 
-    public GridCellCollection(List<GridCell> gridCells)
-        : base(gridCells)
-    {
-    }
-
-    public GridCellCollection(GridCell gridCell)
-        : base(new List<GridCell>() { gridCell })
-    {
-
-    }
-
     public GridCellCollection(GridPositionCollection gridPositions)
         : base()
     {
@@ -81,7 +79,7 @@ public class GridCellCollection : Collection<GridCell>
 
         foreach (GridCell gridCell in this.Items)
         {
-            gridPositions.Add(gridCell.gridPosition);
+            gridPositions.Add(gridCell.GridPosition);
         }
 
         return gridPositions;
