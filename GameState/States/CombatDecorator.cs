@@ -1,32 +1,34 @@
-namespace GameState {
-
-/// <summary>
-/// Allows states to inherit dependencies directly from Combat game states.
-/// </summary>
-public abstract class CombatDecorator : GameState, ICombatGameState
+namespace GameState
 {
-    public abstract IDirectionalSelector Selector { get; }
-    private ICombatGameState baseState;
-
-    public CombatDecorator(ICombatGameState baseState)
+    /// <summary>
+    /// Allows states to inherit dependencies directly from Combat game states.
+    /// </summary>
+    public abstract class CombatDecorator : GameState, ICombatGameState
     {
-        this.baseState = baseState;
-    }
+        public abstract IDirectionalSelector Selector { get; }
+        private ICombatGameState baseState;
 
-    public void SwitchToUnitActionContextState(IUnit unit, IGameState parent = null) 
-    {
-        baseState.SwitchToUnitActionContextState(unit, parent ?? this);
-    }
+        public CombatDecorator(ICombatGameState baseState)
+        {
+            this.baseState = baseState;
+        }
 
-    public override void Deactivate()
-    {
-        baseState.Deactivate();
-    }
+        public void SwitchToUnitActionContextState(
+            Commandable commandable,
+            IGameState parent = null
+        )
+        {
+            baseState.SwitchToUnitActionContextState(commandable, parent ?? this);
+        }
 
-    public override void Reactivate()
-    {
-        baseState.Reactivate();
-    }
-}
+        public override void Deactivate()
+        {
+            baseState.Deactivate();
+        }
 
+        public override void Reactivate()
+        {
+            baseState.Reactivate();
+        }
+    }
 }

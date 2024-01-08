@@ -29,7 +29,7 @@ public class Validator : CombatDecorator
         this.OnStateEntered?.Invoke();
     }
 
-    private void SwitchToGameActionState(IGameAction action)
+    private void SwitchToGameActionState(ActionData action)
     {
         Debug.Log("Unimplemented");
     }

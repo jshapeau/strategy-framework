@@ -1,9 +1,8 @@
-namespace GameState {
-
-public interface ICombatGameState : IGameState
+namespace GameState
 {
-    public IDirectionalSelector Selector { get; }
-    public void SwitchToUnitActionContextState(IUnit unit, IGameState parent);
-}
-
+    public interface ICombatGameState : IGameState
+    {
+        public IDirectionalSelector Selector { get; }
+        public void SwitchToUnitActionContextState(Commandable commandable, IGameState parent);
+    }
 }
