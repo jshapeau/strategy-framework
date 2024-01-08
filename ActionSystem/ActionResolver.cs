@@ -1,6 +1,4 @@
-
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ActionResolver
 {
@@ -26,5 +24,4 @@ public class ActionResolver
     {
         Debug.Log("Unimplemented");
     }
-
 }

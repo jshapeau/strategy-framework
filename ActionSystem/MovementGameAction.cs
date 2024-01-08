@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class MovementGameAction : GameAction<GridCellCollection>
 {
@@ -25,10 +23,20 @@ public class MovementGameAction : GameAction<GridCellCollection>
         }
     }
 
+    //Currently, multi-target will not have multiple destinations. Needs fix.
     public override void Execute(GridCellCollection destination, ActionData parent = null)
     {
         this.data.moveActionData.destination = destination;
         this.data.parent = parent;
+
+        foreach (GridObjectEntity entity in this.data.targets)
+        {
+            List<GridObject> targets = entity.GetComponentsOfType<GridObject>();
+            foreach (GridObject target in targets)
+            {
+                target.Move(this);
+            }
+        }
 
         Debug.Log("Execute Unimplemented");
     }
